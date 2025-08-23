@@ -1,4 +1,5 @@
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import MapView from '@/views/MapView.vue'
 import PageNotFound from '@/views/PageNotFound.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -10,6 +11,12 @@ const router = createRouter({
       name: 'home',
       component: () => import('../views/HomeView.vue'),
       meta: { title: 'Home', layout: DefaultLayout },
+    },
+    {
+      path: '/map',
+      name: 'map',
+      component: MapView,
+      meta: { title: 'Map', layout: DefaultLayout },
     },
     {
       path: '/:pathMatch(.*)*',
