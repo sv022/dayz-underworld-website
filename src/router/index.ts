@@ -1,6 +1,7 @@
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import MapView from '@/views/MapView.vue'
 import PageNotFound from '@/views/PageNotFound.vue'
+import SteamRedirectHelper from '@/views/SteamRedirectHelper.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -17,6 +18,12 @@ const router = createRouter({
       name: 'map',
       component: MapView,
       meta: { title: 'Map', layout: DefaultLayout },
+    },
+    {
+      path: import.meta.env.VITE_STEAM_RETURN_PATH,
+      name: 'steam_redirect',
+      component: SteamRedirectHelper,
+      meta: { title: 'Redirect', layout: DefaultLayout },
     },
     {
       path: '/:pathMatch(.*)*',

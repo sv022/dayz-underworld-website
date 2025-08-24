@@ -30,6 +30,7 @@
 
 .foreground {
   background-color: rgba(52, 52, 52, 0.5);
+  width: 100%;
   height: 100%;
 }
 </style>
