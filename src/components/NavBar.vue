@@ -4,7 +4,7 @@
   import Button from './ui/button/Button.vue';
   import { useUserStore } from '@/stores/user';
   import { storeToRefs } from 'pinia';
-  import { RouterLink } from 'vue-router';
+  import { RouterLink, useRoute } from 'vue-router';
 
 
   const realm = import.meta.env.VITE_STEAM_AUTH_SERVER_PATH
@@ -30,7 +30,9 @@
 
     <nav class="flex justify-center items-center basis-1/3 px-4 gap-10 text-white-secondary text-nowrap">
 
-      <a href="#about">О проекте</a>
+
+      <a v-if="useRoute().path === '/'" href='#about'>О проекте</a>
+      <RouterLink v-else to="/">О проекте</RouterLink>
 
       <RouterLink to="/shop">Магазин</RouterLink>
 
@@ -42,7 +44,9 @@
 
     <div class="flex items-center justify-end basis-1/3">
       <div v-if="isLoggedIn" class="flex items-center md:space-x-8">
-        <h4 class="text-white-primary font-bold text-xl">{{ username }}</h4>
+        <RouterLink to="/profile">
+          <h4 class="text-white-primary font-bold text-xl">{{ username }}</h4>
+        </RouterLink>
         <LogOut class=" text-cardinal-red cursor-pointer" @click="userStore.logout" />
       </div>
       <a v-else :href="realm + authPath">

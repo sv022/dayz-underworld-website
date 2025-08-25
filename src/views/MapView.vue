@@ -7,14 +7,17 @@
 
 <template>
 
-  <div class="flex items-center justify-center map-size p-4 bg-semi-transparent overflow-hidden space-x-4">
-    <div class="h-full aspect-square">
-      <MapContainer src="/high_res_chernarus_sa_map_edited.jpg" />
-    </div>
-    <div class="h-full w-[500px] bg-semi-transparent">
-      <MarkersContainer />
+  <div class="px-32">
+    <div class="flex items-center justify-center map-size p-4 bg-semi-transparent overflow-hidden space-x-4">
+      <div class="h-full aspect-square">
+        <MapContainer src="/high_res_chernarus_sa_map_edited.jpg" />
+      </div>
+      <div class="h-full w-[500px] bg-semi-transparent">
+        <MarkersContainer />
+      </div>
     </div>
   </div>
+
 
 
 </template>
