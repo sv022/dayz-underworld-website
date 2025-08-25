@@ -3,20 +3,27 @@
     @mousemove="onDrag" @mouseup="endDrag" @mouseleave="endDrag" @wheel.prevent="onWheel" @pointermove="onPointerMove"
     @pointerup="onPointerUp" @pointercancel="onPointerUp">
     <img @pointerdown.self="onPointerDown" ref="image" :src="src" alt="Image Viewer" draggable="false"
-      @load="onImageLoad" class="select-none cursor-grab absolute top-1/2 left-1/2 max-w-none rounded-b-4xl" :style="{
+      @load="onImageLoad"
+      class="select-none cursor-grab absolute top-1/2 left-1/2 max-w-none rounded-b-4xl will-change-transform" :style="{
         transform: `translate(-50%, -50%) translate(${position.x}px, ${position.y}px) scale(${scale})`,
         transformOrigin: 'center center'
       }" />
 
-    <div v-for="marker in markers" :key="marker.id" class="absolute" :style="markerStyle(marker)">
+    <div v-for="marker in markers" :key="marker.id" class="absolute isolate" :style="markerStyle(marker)">
       <div class="w-5 h-5 rounded-full bg-red-500 border-3 shadow cursor-pointer relative"
-        :style="`border-color: ${marker.color};`" @click.stop="toggleMarker(marker)"></div>
+        :style="`border-color: ${marker.color};`" @click.stop="toggleMarker(marker)">
+      </div>
+    </div>
+    <div v-if="activeMarker" class="absolute isolate" :style="markerStyle(activeMarker)">
+      <div class="w-5 h-5 rounded-full bg-red-500 border-3 shadow cursor-pointer relative z-100"
+        :style="`border-color: ${activeMarker.color};`" @click.stop="toggleMarker(activeMarker)">
+      </div>
 
       <transition name="fade">
-        <div v-if="activeMarker?.id === marker.id"
-          :class="cn('absolute w-48 bg-white-primary rounded-lg shadow-lg p-2 text-sm', getTooltipPosition(marker))">
-          <div class="font-semibold text-gray-800">{{ marker.name }}</div>
-          <div class="text-gray-600">{{ marker.description }}</div>
+        <div v-if="activeMarker"
+          :class="cn('absolute w-48 bg-white-primary rounded-lg shadow-lg p-2 text-sm', getTooltipPosition(activeMarker))">
+          <div class="font-semibold text-gray-800">{{ activeMarker.name }}</div>
+          <div class="text-gray-600">{{ activeMarker.description }}</div>
         </div>
       </transition>
     </div>
@@ -238,7 +245,20 @@
 
   const activeMarker = ref<Marker | null>(null)
   function toggleMarker(marker: Marker) {
-    activeMarker.value = activeMarker.value?.id === marker.id ? null : marker
+    if (!activeMarker.value) {
+      activeMarker.value = marker
+      markers.value.filter(m => m.id !== marker.id)
+      return
+    }
+    if (activeMarker.value.id === marker.id) {
+      activeMarker.value = null
+      if (markers.value.find(m => m.id === marker.id)) return
+      markers.value.push(marker)
+      return
+    }
+    activeMarker.value = marker
+    markers.value.filter(m => m.id !== marker.id)
+    return
   }
 
   function getTooltipPosition(marker: Marker) {

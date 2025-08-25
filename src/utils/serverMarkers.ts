@@ -61,7 +61,7 @@ export const serverMarkers: MarkerList[] = [
         id: '6',
         name: 'Культисты',
         description: 'Место где можно продать ваш лут с монстров.',
-        tooltip: 'top',
+        tooltip: 'left',
         color: '#4B3E87',
         x: 0.11,
         y: 0.43,
