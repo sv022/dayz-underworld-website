@@ -12,7 +12,7 @@
       <div class="h-full aspect-square">
         <MapContainer src="/high_res_chernarus_sa_map_edited.jpg" />
       </div>
-      <div class="h-full w-[500px] bg-semi-transparent">
+      <div class="h-full w-[500px] bg-semi-transparent overflow-y-scroll">
         <MarkersContainer />
       </div>
     </div>

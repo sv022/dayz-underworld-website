@@ -13,7 +13,7 @@
 
 <template>
 
-  <div class="px-8 py-2 overflow-y-scroll">
+  <div class="px-8 py-2">
     <h1>
       Список локаций
     </h1>
