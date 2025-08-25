@@ -23,6 +23,10 @@ export const useUserStore = defineStore('user', () => {
     steamID.value = ''
     username.value = ''
     profileURL.value = ''
+
+    localStorage.removeItem('steamID')
+    localStorage.removeItem('username')
+    localStorage.removeItem('profileURL')
   }
 
   return { isLoggedIn, steamID, username, profileURL, login, logout }
